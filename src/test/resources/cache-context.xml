@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <!-- This is an ehache implementation of a cahe manager factory
+        the config of which is in its own ehcache.xml file -->
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation">
+            <value>classpath:/ehcache.xml</value>
+        </property>
+    </bean>
+
+    <!-- Here we define some caching providers using the SpringModules projects
+        and its caching component see:
+        https://springmodules.dev.java.net/docs/reference/0.8/html/cache.html -->
+    <bean id="cacheProviderFacade" class="org.springmodules.cache.provider.ehcache.EhCacheFacade">
+        <property name="cacheManager" ref="cacheManager" />
+    </bean>
+
+    <bean id="cachingInterceptor" class="org.springmodules.cache.interceptor.caching.MethodMapCachingInterceptor">
+        <property name="cacheProviderFacade" ref="cacheProviderFacade" />
+        <property name="cachingModels">
+            <props>
+                <prop key="com.geoffwebb.demo.cache.CacheableService.cache*">cacheName=METHOD_CACHE_SHORT</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="beanNames">
+            <list>
+                <value>cacheableService</value>
+            </list>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>cachingInterceptor</value>
+            </list>
+        </property>
+    </bean>
+</beans>
