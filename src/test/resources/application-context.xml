@@ -5,5 +5,7 @@
 
     <bean id="xmlMunger" class="com.geoffwebb.demo.xml.XmlMunger" />
      
-    <bean id="cacheableService" class="com.geoffwebb.demo.cache.CacheableService" />
+    <bean id="cachedService" class="com.geoffwebb.demo.cache.CacheableService" />
+
+    <bean id="uncachedService" class="com.geoffwebb.demo.cache.CacheableService" />
 </beans>

@@ -5,11 +5,6 @@ public class CacheableService
 
     public static int THINGS_CREATED = 0;
 
-    public Thing cacheableThingMaker(String name)
-    {
-        return makeThing(name);
-    }
-
     public Thing thingMaker(String name)
     {
         return makeThing(name);

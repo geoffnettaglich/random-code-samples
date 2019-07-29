@@ -21,7 +21,7 @@
         <property name="cacheProviderFacade" ref="cacheProviderFacade" />
         <property name="cachingModels">
             <props>
-                <prop key="com.geoffwebb.demo.cache.CacheableService.cache*">cacheName=METHOD_CACHE_SHORT</prop>
+                <prop key="com.geoffwebb.demo.cache.CacheableService.thingMaker*">cacheName=METHOD_CACHE_SHORT</prop>
             </props>
         </property>
     </bean>
@@ -29,7 +29,7 @@
     <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
         <property name="beanNames">
             <list>
-                <value>cacheableService</value>
+                <value>cachedService</value>
             </list>
         </property>
         <property name="interceptorNames">
